@@ -1,0 +1,492 @@
+<html>
+    <head>
+        
+        <title>Dashboard</title>
+
+        <link rel="stylesheet" href="../css/skote.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css" media="all" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    </head>
+    <body>
+
+        <div id="app" class="container">
+                
+            <header id="page-topbar">
+
+                <div class="topNavigationBar">
+                    
+                    <div class="positionSearchBar">
+                        <input type="text" placeholder="Search..." class="search">
+                    </div>
+                        
+                </div>
+
+            </header>
+
+            <div class="sideNavigationBar">
+
+                <span class="logoSkote">
+                    <img src="logoSkote.png">
+                </span>
+
+                <div id="sideMenuList" class="sideMenu">
+                    
+                    <p class="menu-title"> MENU </p>
+                    
+                    <ul class="menu-content">
+                        <li v-for="list in sideMenuList"><a>{{ list }}</a></li>
+                    </ul>
+
+                </div>
+                           
+            </div>
+
+            <div class="dashboard-content">
+            
+                <div class="row">
+                    <div class="dashboard-title"> DASHBOARD </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="rowContainer">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                <div class="card-body-title">
+                                    <div class="card-body-title-icon">
+                                        <span class="roundCircle">
+                                            <i class="bx bx-copy-alt"></i>
+                                        </span>
+                                    </div>
+                                    <div class="title" v-for="item in orders"> {{ item.title }} </div>
+                                </div>
+
+                                <div class="card-body-content">
+                                    <div class="quantity" v-for="item in orders"> 
+                                        {{ item.quantity }} 
+                                        <i class="mdi mdi-chevron-up ms-1 text-success"></i>
+                                    </div>
+                                    <div class="sub-content">
+                                        <span class="percentage" v-for="item in orders"> {{ item.percentage }} </span>
+                                        <span class="period" v-for="item in orders"> {{ item.period}} </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rowContainer">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                <div class="card-body-title">
+                                    <div class="card-body-title-icon">
+                                        <span class="roundCircle">
+                                            <i class="bx bx-archive-in"></i>
+                                        </span>
+                                    </div>
+                                    <div class="title" v-for="item in revenue"> {{ item.title }} </div>
+                                </div>
+
+                                <div class="card-body-content">
+                                    <div class="quantity" v-for="item in revenue"> 
+                                        {{ item.total }} 
+                                        <i class="mdi mdi-chevron-up ms-1 text-success"></i>
+                                    </div>
+                                    <div class="sub-content">
+                                        <span class="percentage" v-for="item in revenue"> {{ item.percentage }} </span>
+                                        <span class="period" v-for="item in revenue"> {{ item.period}} </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rowContainer">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                <div class="card-body-title">
+                                    <div class="card-body-title-icon">
+                                        <span class="roundCircle">
+                                            <i class="bx bx-purchase-tag-alt"></i>
+                                        </span>
+                                    </div>
+                                    <div class="title" v-for="item in averagePrice"> {{ item.title }} </div>
+                                </div>
+
+                                <div class="card-body-content">
+                                    <div class="quantity" v-for="item in averagePrice"> 
+                                        {{ item.total }} 
+                                        <i class="mdi mdi-chevron-up ms-1 text-success"></i>
+                                    </div>
+                                    <div class="sub-content">
+                                        <span class="percentageAveragePrice" v-for="item in averagePrice"> {{ item.percentage }} </span>
+                                        <span class="period" v-for="item in averagePrice"> {{ item.period}} </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                       
+                </div>
+
+                <div class="row">
+                    
+                    <div class="rowContainer2">
+                        <div class="card">
+                            <div class="card-body product">
+                                
+                                <div class="product-header">
+                                    <div class="selling-month">
+                                        <div class="monthInput">
+                                            <select class="month-group" v-model="selectedMonth">
+                                                <option v-for="month in monthDisplay">{{ month }}</option>
+                                            </select>
+                                            <label class="labelMonth">Month</label>
+                                        </div>
+                                    </div>
+
+                                    <h4 class="product-title">Top Selling Product</h4>
+                                </div>
+
+                                <div class="product-middle-section">
+                                    <p class="product-name" v-for="item in product"> {{ item.name }} </p>
+                                    <div class="quantity" v-for="item in product"> {{ item.total }} </div>
+                                    <p class="product-sub-middle-section">
+                                        <span class="percentage" v-for="item in product">
+                                            {{ item.percentage }}
+                                            <i class="mdi mdi-arrow-up"></i>
+                                        </span>
+                                        <span class="period" v-for="item in product"> {{ item.period}} </span>
+                                    </p>
+                                </div>
+
+                                <div class="product-bottom-section">
+                                    <table class="product-sales-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h5 class="productName" v-for="item in SalesA"> {{item.productName}} </h5>
+                                                    <p class="productSubName" v-for="item in SalesA"> {{ item.productSubName}} </p>
+                                                </td>
+                                                <td style="position:relative;">
+
+                                                </td>
+                                                <td>
+                                                    <p class="sales">Sales</p>
+                                                    <h5 class="sales-percentage" v-for="item in SalesA"> {{ item.salesPercentage }} </h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5 class="productName" v-for="item in SalesB"> {{item.productName}} </h5>
+                                                    <p class="productSubName" v-for="item in SalesB"> {{ item.productSubName}} </p>
+                                                </td>
+                                                <td style="position:relative;">
+
+                                                </td>
+                                                <td>
+                                                    <p class="sales">Sales</p>
+                                                    <h5 class="sales-percentage" v-for="item in SalesB"> {{ item.salesPercentage }} </h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5 class="productName" v-for="item in SalesC"> {{item.productName}} </h5>
+                                                    <p class="productSubName" v-for="item in SalesC"> {{ item.productSubName}} </p>
+                                                </td>
+                                                <td style="position:relative;">
+
+                                                </td>
+                                                <td>
+                                                    <p class="sales">Sales</p>
+                                                    <h5 class="sales-percentage" v-for="item in SalesC"> {{ item.salesPercentage }} </h5>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rowContainer2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="activity-title">Activity</h4>
+                                <ul class="activity">
+                                   
+                                    <li class="event-list">
+                                        <div class="timeline">
+                                            <i class="bx bx-right-arrow-circle" style="font-size: 18px !important;"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-date">
+                                                <h5 class="date" v-for="item in activity1">{{ item.date }}
+                                                    <i class="bx bx-right-arrow-alt" style="font-size: 16px !important; color:#556ee6!important; margin-left: .5rem !important; vertical-align: middle !important;"></i>
+                                                </h5>
+                                            </div>
+                                            <div class="activity-details">
+                                                <h5 v-for="item in activity1">{{ item.details }}</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="event-list">
+                                        <div class="timeline">
+                                            <i class="bx bx-right-arrow-circle" style="font-size: 18px !important;"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-date">
+                                                <h5 class="date" v-for="item in activity2">{{ item.date }}
+                                                    <i class="bx bx-right-arrow-alt" style="font-size: 16px !important; color:#556ee6!important; margin-left: .5rem !important; vertical-align: middle !important;"></i>
+                                                </h5>
+                                            </div>
+                                            <div class="activity-details">
+                                                <h5 v-for="item in activity2">{{ item.details }}
+                                                    <a>Read more</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="event-list">
+                                        <div class="timeline">
+                                            <i class="bx bxs-right-arrow-circle" style="font-size: 18px !important;"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-date">
+                                                <h5 class="date" v-for="item in activity3">{{ item.date }}
+                                                    <i class="bx bx-right-arrow-alt" style="font-size: 16px !important; color:#556ee6!important; margin-left: .5rem !important; vertical-align: middle !important;"></i>
+                                                </h5>
+                                            </div>
+                                            <div class="activity-details">
+                                                <h5 v-for="item in activity3">{{ item.details }}</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li class="event-list">
+                                        <div class="timeline">
+                                            <i class="bx bx-right-arrow-circle" style="font-size: 18px !important;"></i>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-date">
+                                                <h5 class="date" v-for="item in activity4">{{ item.date }}
+                                                    <i class="bx bx-right-arrow-alt" style="font-size: 16px !important; color:#556ee6!important; margin-left: .5rem !important; vertical-align: middle !important;"></i>
+                                                </h5>
+                                            </div>
+                                            <div class="activity-details">
+                                                <h5 v-for="item in activity4">{{ item.details }}</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+
+                                <div class="viewMoreButton">
+                                    <a class="btn"> View More
+                                        <i class="mdi mdi-arrow-right" style="margin-left: .25rem !important;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="row">
+
+                    <div class="rowContainer3">
+                        <div class="card">
+                            <div class="card-body-transaction">
+                                <h4 class="card-title">Latest Transaction</h4>
+
+                                <div class="transactionTable">
+                                    <table class="transaction">
+                                        <thead class="transactionTitle">
+                                            <tr>
+                                                <th class="checkbox" style="width: 20px;">
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </th>
+                                                <th v-for="list in transactionList">{{ list }}</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h5 v-for="item in transaction1">{{ item.orderID }}</h5>
+                                                </td>
+                                                <td v-for="item in transaction1">{{ item.billingName }}</td>
+                                                <td v-for="item in transaction1">{{ item.date }}</td>
+                                                <td v-for="item in transaction1">{{ item.total }}</td>
+                                                <td v-for="item in transaction1">
+                                                    <span class="transPaymentStatus">{{ item.paymentStatus }}</span>
+                                                </td>
+                                                <td v-for="item in transaction1">
+                                                    <i class="fab fa-cc-mastercard"></i>{{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="viewButton">View Details</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h5 v-for="item in transaction2">{{ item.orderID }}</h5>
+                                                </td>
+                                                <td v-for="item in transaction2">{{ item.billingName }}</td>
+                                                <td v-for="item in transaction2">{{ item.date }}</td>
+                                                <td v-for="item in transaction2">{{ item.total }}</td>
+                                                <td v-for="item in transaction2">
+                                                    <span class="transPaymentStatus2">{{ item.paymentStatus }}</span>
+                                                </td>
+                                                <td v-for="item in transaction2">
+                                                    <i class="fab fa-cc-visa"></i>{{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="viewButton">View Details</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h5 v-for="item in transaction3">{{ item.orderID }}</h5>
+                                                </td>
+                                                <td v-for="item in transaction3">{{ item.billingName }}</td>
+                                                <td v-for="item in transaction3">{{ item.date }}</td>
+                                                <td v-for="item in transaction3">{{ item.total }}</td>
+                                                <td v-for="item in transaction3">
+                                                    <span class="transPaymentStatus">{{ item.paymentStatus }}</span>
+                                                </td>
+                                                <td v-for="item in transaction3">
+                                                    <i class="fab fa-cc-paypal"></i>{{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="viewButton">View Details</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h5 v-for="item in transaction4">{{ item.orderID }}</h5>
+                                                </td>
+                                                <td v-for="item in transaction4">{{ item.billingName }}</td>
+                                                <td v-for="item in transaction4">{{ item.date }}</td>
+                                                <td v-for="item in transaction4">{{ item.total }}</td>
+                                                <td v-for="item in transaction4">
+                                                    <span class="transPaymentStatus">{{ item.paymentStatus }}</span>
+                                                </td>
+                                                <td v-for="item in transaction4">
+                                                    <i class="fab fa-cc-mastercard"></i>{{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="viewButton">View Details</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h5 v-for="item in transaction5">{{ item.orderID }}</h5>
+                                                </td>
+                                                <td v-for="item in transaction5">{{ item.billingName }}</td>
+                                                <td v-for="item in transaction5">{{ item.date }}</td>
+                                                <td v-for="item in transaction5">{{ item.total }}</td>
+                                                <td v-for="item in transaction5">
+                                                    <span class="transPaymentStatus3">{{ item.paymentStatus }}</span>
+                                                </td>
+                                                <td v-for="item in transaction5">
+                                                    <i class="fab fa-cc-visa"></i>{{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="viewButton">View Details</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <div class="checkboxTransaction">
+                                                        <input type="checkbox" id="transactionCheck" class="checkInput">
+                                                        <label for="transactionCheck" class="checkInputLabel"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h5 v-for="item in transaction6">{{ item.orderID }}</h5>
+                                                </td>
+                                                <td v-for="item in transaction6">{{ item.billingName }}</td>
+                                                <td v-for="item in transaction6">{{ item.date }}</td>
+                                                <td v-for="item in transaction6">{{ item.total }}</td>
+                                                <td v-for="item in transaction6">
+                                                    <span class="transPaymentStatus">{{ item.paymentStatus }}</span>
+                                                </td>
+                                                <td v-for="item in transaction6">
+                                                    <i class="fab fa-cc-paypal"></i>{{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="viewButton">View Details</button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+        <script src="../js/skote.js"></script>
+
+    </body>
+</html>
